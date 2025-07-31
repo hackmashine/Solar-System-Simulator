@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Solar System Simulator" data-ru="Симулятор Солнечной Системы">Симулятор Солнечной Системы</title>
+    <meta name="description" content="Интерактивная 3D симуляция солнечной системы для изучения планет и космических объектов">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="stars-background"></div>
+    
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span data-en="Solar System Simulator" data-ru="Симулятор Солнечной Системы">Симулятор Солнечной Системы</span>
+            </h1>
+            <nav class="nav">
+                <button class="nav-btn active" data-view="simulation">
+                    <i class="fas fa-rocket"></i> 
+                    <span data-en="Simulation" data-ru="Симуляция">Симуляция</span>
+                </button>
+                <button class="nav-btn" data-view="education">
+                    <i class="fas fa-graduation-cap"></i> 
+                    <span data-en="Education" data-ru="Обучение">Обучение</span>
+                </button>
+                <button class="nav-btn" data-view="about">
+                    <i class="fas fa-info-circle"></i> 
+                    <span data-en="About" data-ru="О проекте">О проекте</span>
+                </button>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ru">
+                        <i class="fas fa-flag"></i> RU
+                    </button>
+                    <button class="lang-btn" data-lang="en">
+                        <i class="fas fa-flag"></i> EN
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Симуляция -->
+        <section id="simulation" class="view active">
+            <div class="simulation-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="speed" data-en="Time Speed:" data-ru="Скорость времени:">Скорость времени:</label>
+                        <input type="range" id="speed" min="0" max="100" value="50">
+                        <span id="speed-value">50x</span>
+                    </div>
+                    <div class="control-group">
+                        <label for="scale" data-en="Orbit Scale:" data-ru="Масштаб орбит:">Масштаб орбит:</label>
+                        <input type="range" id="scale" min="10" max="100" value="50">
+                        <span id="scale-value">50%</span>
+                    </div>
+                    <div class="control-group">
+                        <button id="pause-btn" class="control-btn">
+                            <i class="fas fa-pause"></i> 
+                            <span data-en="Pause" data-ru="Пауза">Пауза</span>
+                        </button>
+                        <button id="reset-btn" class="control-btn">
+                            <i class="fas fa-redo"></i> 
+                            <span data-en="Reset" data-ru="Сброс">Сброс</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="solar-system">
+                    <div class="sun">
+                        <div class="sun-core"></div>
+                        <div class="sun-glow"></div>
+                    </div>
+                    
+                    <div class="planet mercury" data-planet="mercury">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet venus" data-planet="venus">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet earth" data-planet="earth">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                        <div class="moon"></div>
+                    </div>
+                    
+                    <div class="planet mars" data-planet="mars">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet jupiter" data-planet="jupiter">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet saturn" data-planet="saturn">
+                        <div class="planet-body"></div>
+                        <div class="rings"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet uranus" data-planet="uranus">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                    
+                    <div class="planet neptune" data-planet="neptune">
+                        <div class="planet-body"></div>
+                        <div class="orbit"></div>
+                    </div>
+                </div>
+
+                <div class="info-panel">
+                    <div class="info-header">
+                        <h3 data-en="Planet Information" data-ru="Информация о планете">Информация о планете</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <div class="info-content">
+                        <div class="planet-image">
+                            <img id="planet-img" src="" alt="">
+                        </div>
+                        <div class="planet-details">
+                            <h4 id="planet-name" data-en="Select a planet" data-ru="Выберите планету">Выберите планету</h4>
+                            <p id="planet-description" data-en="Click on any planet to get information" data-ru="Кликните на любую планету для получения информации">Кликните на любую планету для получения информации</p>
+                            <div class="planet-stats">
+                                <div class="stat">
+                                    <span class="stat-label" data-en="Distance from Sun:" data-ru="Расстояние от Солнца:">Расстояние от Солнца:</span>
+                                    <span id="distance" class="stat-value">-</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label" data-en="Orbital Period:" data-ru="Период обращения:">Период обращения:</span>
+                                    <span id="period" class="stat-value">-</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label" data-en="Diameter:" data-ru="Диаметр:">Диаметр:</span>
+                                    <span id="diameter" class="stat-value">-</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label" data-en="Temperature:" data-ru="Температура:">Температура:</span>
+                                    <span id="temperature" class="stat-value">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Обучение -->
+        <section id="education" class="view">
+            <div class="container">
+                <h2 data-en="Educational Materials" data-ru="Образовательные материалы">Образовательные материалы</h2>
+                <div class="education-grid">
+                    <div class="education-card">
+                        <div class="card-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <h3 data-en="Sun" data-ru="Солнце">Солнце</h3>
+                        <p data-en="The central star of our solar system, source of energy for all planets." data-ru="Центральная звезда нашей солнечной системы, источник энергии для всех планет.">Центральная звезда нашей солнечной системы, источник энергии для всех планет.</p>
+                        <button class="learn-more-btn" data-topic="sun" data-en="Learn More" data-ru="Узнать больше">Узнать больше</button>
+                    </div>
+                    
+                    <div class="education-card">
+                        <div class="card-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 data-en="Terrestrial Planets" data-ru="Планеты земной группы">Планеты земной группы</h3>
+                        <p data-en="Mercury, Venus, Earth and Mars - rocky planets with solid surfaces." data-ru="Меркурий, Венера, Земля и Марс - каменистые планеты с твердой поверхностью.">Меркурий, Венера, Земля и Марс - каменистые планеты с твердой поверхностью.</p>
+                        <button class="learn-more-btn" data-topic="terrestrial" data-en="Learn More" data-ru="Узнать больше">Узнать больше</button>
+                    </div>
+                    
+                    <div class="education-card">
+                        <div class="card-icon">
+                            <i class="fas fa-gas-pump"></i>
+                        </div>
+                        <h3 data-en="Gas Giants" data-ru="Газовые гиганты">Газовые гиганты</h3>
+                        <p data-en="Jupiter, Saturn, Uranus and Neptune - planets consisting mainly of gas." data-ru="Юпитер, Сатурн, Уран и Нептун - планеты, состоящие в основном из газа.">Юпитер, Сатурн, Уран и Нептун - планеты, состоящие в основном из газа.</p>
+                        <button class="learn-more-btn" data-topic="gas-giants" data-en="Learn More" data-ru="Узнать больше">Узнать больше</button>
+                    </div>
+                    
+                    <div class="education-card">
+                        <div class="card-icon">
+                            <i class="fas fa-satellite"></i>
+                        </div>
+                        <h3 data-en="Moons and Rings" data-ru="Спутники и кольца">Спутники и кольца</h3>
+                        <p data-en="Planetary moons and ring systems, such as Saturn's rings." data-ru="Луны планет и кольцевые системы, такие как кольца Сатурна.">Луны планет и кольцевые системы, такие как кольца Сатурна.</p>
+                        <button class="learn-more-btn" data-topic="moons-rings" data-en="Learn More" data-ru="Узнать больше">Узнать больше</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- О проекте -->
+        <section id="about" class="view">
+            <div class="container">
+                <h2 data-en="About the Project" data-ru="О проекте">О проекте</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3 data-en="Solar System Simulator" data-ru="Симулятор Солнечной Системы">Симулятор Солнечной Системы</h3>
+                        <p data-en="This educational project was created to study astronomy and space objects of our solar system. The project demonstrates the capabilities of modern web technologies in creating interactive educational applications." data-ru="Этот образовательный проект создан для изучения астрономии и космических объектов нашей солнечной системы. Проект демонстрирует возможности современных веб-технологий в создании интерактивных образовательных приложений.">Этот образовательный проект создан для изучения астрономии и космических объектов нашей солнечной системы. Проект демонстрирует возможности современных веб-технологий в создании интерактивных образовательных приложений.</p>
+                        
+                        <h4 data-en="Technologies:" data-ru="Технологии:">Технологии:</h4>
+                        <ul>
+                            <li><strong>HTML5</strong> - <span data-en="semantic markup" data-ru="семантическая разметка">семантическая разметка</span></li>
+                            <li><strong>CSS3</strong> - <span data-en="animations, gradients, 3D transformations" data-ru="анимации, градиенты, 3D трансформации">анимации, градиенты, 3D трансформации</span></li>
+                            <li><strong>JavaScript</strong> - <span data-en="interactivity and logic" data-ru="интерактивность и логика">интерактивность и логика</span></li>
+                            <li><strong>Canvas API</strong> - <span data-en="for complex animations" data-ru="для сложных анимаций">для сложных анимаций</span></li>
+                        </ul>
+                        
+                        <h4 data-en="Features:" data-ru="Особенности:">Особенности:</h4>
+                        <ul>
+                            <li data-en="Realistic planet motion simulation" data-ru="Реалистичная симуляция движения планет">Реалистичная симуляция движения планет</li>
+                            <li data-en="Interactive information about each planet" data-ru="Интерактивная информация о каждой планете">Интерактивная информация о каждой планете</li>
+                            <li data-en="Customizable simulation parameters" data-ru="Настраиваемые параметры симуляции">Настраиваемые параметры симуляции</li>
+                            <li data-en="Responsive design" data-ru="Адаптивный дизайн">Адаптивный дизайн</li>
+                            <li data-en="Educational materials" data-ru="Образовательные материалы">Образовательные материалы</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label" data-en="Planets" data-ru="Планет">Планет</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label" data-en="Moons" data-ru="Спутников">Спутников</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">4.6</div>
+                            <div class="stat-label" data-en="Billion Years" data-ru="Млрд лет">Млрд лет</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-en="&copy; 2024 Solar System Simulator. Educational project for university." data-ru="&copy; 2024 Симулятор Солнечной Системы. Образовательный проект для университета.">&copy; 2024 Симулятор Солнечной Системы. Образовательный проект для университета.</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="#" class="footer-link">
+                    <i class="fas fa-book"></i> 
+                    <span data-en="Documentation" data-ru="Документация">Документация</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
